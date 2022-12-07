@@ -18,31 +18,23 @@ puzzle_input = puzzle_input_file.read()
 
 rucksacks = puzzle_input.split('\n')
 
-mistaken_sum = 0
+badges_sum = 0
 
-for rucksack in rucksacks:
-    rucksack_size = len(rucksack)
+elf_groups = [[] for _ in range(len(rucksacks) // 3)]
 
-    first_compartment = set()
-    second_compartment = set()
+for rucksack_index in range(len(rucksacks)):
+    rucksack_as_set = set()
 
-    raw_first_compartment = rucksack[:rucksack_size // 2]
+    rucksack = rucksacks[rucksack_index]
 
-    for item_type in raw_first_compartment:
-        first_compartment.add(item_type)
+    for item_type in rucksack:
+        rucksack_as_set.add(item_type)
 
-    raw_second_compartment = rucksack[rucksack_size // 2:]
+    elf_groups[rucksack_index // 3].append(rucksack_as_set)
 
-    for item_type in raw_second_compartment:
-        second_compartment.add(item_type)
+for group in elf_groups:
+    badge = group[0].intersection(group[1]).intersection(group[2]).pop()
 
-    mistaken_item_types = first_compartment.intersection(second_compartment)
+    badges_sum += get_priority(badge)
 
-    for mistaken in mistaken_item_types:
-        priority = get_priority(mistaken)
-
-        print(priority, mistaken_sum)
-
-        mistaken_sum += priority
-
-print(mistaken_sum)
+print(badges_sum)

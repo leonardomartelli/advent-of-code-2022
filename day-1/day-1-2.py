@@ -3,7 +3,6 @@ puzzle_input_file = open('input.txt', 'r')
 
 puzzle_input = puzzle_input_file.read()
 
-
 elves_buffer = puzzle_input.split('\n\n')
 
 ranking = []
@@ -22,7 +21,3 @@ for buffer in elves_buffer:
 ranking.sort()
 
 print(ranking[-3] + ranking[-2] + ranking[-1])
-
-print()
-
-print(ranking)
